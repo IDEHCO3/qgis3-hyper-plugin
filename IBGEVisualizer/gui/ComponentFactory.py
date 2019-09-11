@@ -103,17 +103,13 @@ class SupportedOperationListItem(QListWidgetItem):
 
         self.setText(self.name)
 
-        self.setToolTip(unicode(self.property))
+        self.setToolTip(str(self.property))
         self.setBackground(QBrush(QColor(255, 252, 226)))
 
 
+from IBGEVisualizer.HyperResource import SupportedProperty
 class SupportedPropertyListItem(QListWidgetItem):
-    def __init__(self, prop):
-        from IBGEVisualizer.HyperResource import SupportedProperty
-
-        if not isinstance(prop, SupportedProperty):
-            return
-
+    def __init__(self, prop: SupportedProperty):
         super(SupportedPropertyListItem, self).__init__()
 
         self.property = prop

@@ -14,7 +14,7 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 
 
 class FrameCollect(QFrame, FORM_CLASS):
-    criteria_inserted = pyqtSignal(unicode)
+    criteria_inserted = pyqtSignal('QString')
 
     def __init__(self, resource):
         super(FrameCollect, self).__init__()

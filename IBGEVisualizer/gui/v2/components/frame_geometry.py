@@ -45,7 +45,7 @@ class FrameGeometry(QFrame, FORM_CLASS):
         if not model:
             return
 
-        for name, iri in model.items():
+        for name, iri in list(model.items()):
             resource = ResourceManager.load(iri, name)
 
             self.list_resource.add(resource)

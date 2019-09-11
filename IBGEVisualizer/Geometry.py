@@ -4,7 +4,8 @@
 from qgis.core import *
 
 def convert_to_qgs_geometry(geom):
-    if geom is None: return create_empty_qgs_geometry()
+    if geom is None:
+        return create_empty_qgs_geometry()
 
     switch = {
         'point': create_point,
@@ -25,7 +26,7 @@ def create_empty_qgs_geometry(*args):
     
 
 def create_point(coord):
-    return QgsGeometry.fromPoint( QgsPoint(coord[0], coord[1]) )
+    return QgsGeometry.fromPointXY( QgsPointXY(coord[0], coord[1]) )
 
 
 def create_multi_point(point_array):
@@ -35,7 +36,7 @@ def create_multi_point(point_array):
         p = create_point(point)
         vector.append(p.asPoint())
 
-    return QgsGeometry.fromMultiPoint( vector )
+    return QgsGeometry.fromMultiPointXY( vector )
 
 
 def create_linestring(point_array):
@@ -55,7 +56,7 @@ def create_multi_linestring(line_array):
         l = create_linestring(line)
         vector.append(l.asPolyline())
 
-    return QgsGeometry.fromMultiPolyline( vector )
+    return QgsGeometry.fromMultiPolylineXY( vector )
 
 
 def create_polygon(line_array):
@@ -65,7 +66,7 @@ def create_polygon(line_array):
         l = create_linestring(line)
         vector.append(l.asPolyline())
 
-    return QgsGeometry.fromPolygon( vector )
+    return QgsGeometry.fromPolygonXY( vector )
 
 
 def create_multi_polygon(polygon_array):
@@ -75,4 +76,4 @@ def create_multi_polygon(polygon_array):
         p = create_polygon(polygon)
         vector.append(p.asPolygon())
 
-    return QgsGeometry.fromMultiPolygon( vector )
+    return QgsGeometry.fromMultiPolygonXY( vector )

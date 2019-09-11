@@ -136,11 +136,12 @@ class SupportedOperation(object):
         return self.name == other.name
 
     def parameters(self):
-        if isinstance(self.expects, list):
+        if isinstance(self.expects, list) and len(self.expects) > 0:
             if isinstance(self.expects[0], dict):
                 return [param.get('parameter') for param in self.expects]
 
             return self.expects
+        return []
 
 
 class PropertySupportedOperation(object):
@@ -154,10 +155,6 @@ class PropertySupportedOperation(object):
 
 class PropertySupportedOperationReader(object):
     def __init__(self, url):
-        #TODO apagar isso qundo tiver um ip certo
-        if url:
-            url = url.replace('172.30.10.86', '172.30.137.117')
-
         self.url = url
 
         self._data = {}
@@ -371,9 +368,9 @@ class HeaderReader(object):
 
     def headers(self):
         if not self._headers:
-            reply = request_head(self.iri)
+            reply = HEAD(self.iri)
             response = reply.response()
-
+            
             # Verify if iri is available
             if int(response['status_code']) < 200 or int(response['status_code']) >= 300:
                 error = BadAddressError(u'Acesso à {} retornou {} {}'.format(
@@ -394,7 +391,7 @@ class HeaderReader(object):
 
     def _parse(self, response):
         headers = response.get('headers')
-
+        
         headers.update(response)
         headers.update({
             'link': self.parse_link_header(headers.get('link')),
@@ -546,7 +543,7 @@ class GetReader(QObject):
                 raise Exception(u'Acesso à {} retornou {} {}'.format(
                     self.iri, self._data['status_code'], self._data['status_phrase']))
 
-        return self._data.get('body')
+        return self._data.get('body').decode('utf-8')
 
     def as_json(self):
         return json.loads(self.as_text())

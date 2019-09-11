@@ -20,7 +20,16 @@
    <enum>QFrame::Raised</enum>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
     <number>0</number>
    </property>
    <item row="0" column="0">
@@ -35,7 +44,16 @@
       <string>Expressão de filtro:</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_4">
-      <property name="margin">
+      <property name="leftMargin">
+       <number>4</number>
+      </property>
+      <property name="topMargin">
+       <number>4</number>
+      </property>
+      <property name="rightMargin">
+       <number>4</number>
+      </property>
+      <property name="bottomMargin">
        <number>4</number>
       </property>
       <property name="horizontalSpacing">
@@ -158,7 +176,7 @@
          <bool>true</bool>
         </property>
         <property name="currentIndex">
-         <number>3</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="tab_value">
          <attribute name="title">
@@ -283,55 +301,6 @@
              <size>
               <width>20</width>
               <height>0</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QWidget" name="tab_text">
-         <attribute name="title">
-          <string>Texto</string>
-         </attribute>
-         <layout class="QVBoxLayout" name="verticalLayout_5">
-          <item>
-           <widget class="QGroupBox" name="groupBox_7">
-            <property name="title">
-             <string>Operadores</string>
-            </property>
-            <property name="flat">
-             <bool>false</bool>
-            </property>
-            <property name="checkable">
-             <bool>false</bool>
-            </property>
-            <layout class="QGridLayout" name="gridLayout_8">
-             <item row="1" column="0">
-              <widget class="QPushButton" name="pushButton_18">
-               <property name="text">
-                <string>!=</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0">
-              <widget class="QPushButton" name="pushButton_20">
-               <property name="text">
-                <string>=</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <spacer name="verticalSpacer_4">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
              </size>
             </property>
            </spacer>

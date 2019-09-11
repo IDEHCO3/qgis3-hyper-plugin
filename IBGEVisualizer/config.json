@@ -1,8 +1,5 @@
 {
   "memo_urls": {
-    "munic": "http://172.30.137.117/api/munic-2015/gestao-ambiental-list/filter/sistema_infor_geografica_existencia/eq/Sim", 
-    "SP": "http://chi00559763:8080/api/ibge/recursos-naturais/cobertura-uso-terra/cobertura-uso-terra200014-sp-list", 
-    "IBGE": "http://172.30.137.117/api/ibge/", 
-    "faturamento": "http://172.30.137.117/api/pib-municipio/faturamento-list/filter/ano/eq/2015"
+    "IBGE": "http://172.30.137.117/api/ibge/"
   }
 }

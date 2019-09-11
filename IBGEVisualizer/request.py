@@ -13,16 +13,16 @@
 """
 
 from qgis.PyQt.QtCore import QObject, QUrl, QEventLoop, QBuffer, QByteArray, pyqtSignal
-from PyQt5.QtNetwork import QNetworkRequest, QNetworkAccessManager
+from qgis.PyQt.QtNetwork import QNetworkRequest, QNetworkAccessManager
 
 # Esta class serve como proxy entre QNetworkReply e o plugin.
 # Nela há um tratamento melhorado do output de QNetworkReply
 class Reply(QObject):
     requestStarted = pyqtSignal()
     readyRead = pyqtSignal()
-    downloadProgress = pyqtSignal(unicode, unicode)
+    downloadProgress = pyqtSignal('QString', 'QString')
     finished = pyqtSignal()
-    error = pyqtSignal(unicode)
+    error = pyqtSignal('QString')
 
     def __init__(self, command, url=""):
         super(Reply, self).__init__()
@@ -86,7 +86,9 @@ class Reply(QObject):
             # Transform header from reply into key value pairs
             header_data = {}
             for tup in self.reply.rawHeaderPairs():
-                header_data.update({tup[0].data().lower(): tup[1].data()})
+                key = tup[0].data().lower().decode("utf-8", errors="ignore")
+                value = tup[1].data().decode("utf-8", errors="ignore")
+                header_data.update({ key: value })
 
             self.reply.deleteLater()
 

@@ -26,7 +26,7 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 
 class DialogConstructUrl(QDialog, FORM_CLASS):
     # 1, nome da layer, 2, url da layer
-    load_url_command = pyqtSignal(unicode, unicode)
+    load_url_command = pyqtSignal('QString', 'QString')
 
     def __init__(self, resource):
         super(DialogConstructUrl, self).__init__()
@@ -54,7 +54,7 @@ class DialogConstructUrl(QDialog, FORM_CLASS):
             self._load_property_list_frame()
 
         if item.type_ == 'supported_operation':
-            if len(item.property.parameters()) < 1:
+            if len(item.property.parameters()) == 0:
                 self._load_empty_expects_frame(item)
 
             elif item.name == 'offset-limit':
@@ -80,7 +80,7 @@ class DialogConstructUrl(QDialog, FORM_CLASS):
     def _bt_load_url_clicked(self):
         url = self.ta_url.toPlainText()
         name = url.strip('/').split('/')[-1]
-        self.load_url_command.emit(name, unicode(url))
+        self.load_url_command.emit(name, url)
 
     def _load_collect_frame(self):
         widget = FrameCollect(self.resource)
@@ -144,7 +144,7 @@ class DialogConstructUrl(QDialog, FORM_CLASS):
     def create_operations_list(self):
         properties = self.resource.properties()
         operations = self.resource.operations()
-
+        
         if properties:
             self.generate_property_items_from_options(properties)
 
@@ -168,7 +168,7 @@ class DialogConstructUrl(QDialog, FORM_CLASS):
             res = factory_callback(attr)
             add_item_callback(res)
 
-        map(create_and_insert_item, options_attributes)
+        list(map(create_and_insert_item, options_attributes))
 
 
 class UrlBuilder(QObject):
@@ -198,6 +198,7 @@ class UrlBuilder(QObject):
         return ''
 
     def set_operation(self, operation):
+        self.bound_item.clear()
         self._operation = operation
         self.url_updated.emit(self.url_built())
 
@@ -223,8 +224,8 @@ class UrlBuilder(QObject):
     def url_built(self):
         appendix = self.appendix()
 
-        if not appendix == '' and not appendix.endswith('/*') and not appendix.endswith('/'):
+        if (not appendix == '') and (not appendix.endswith('/*')) and (not appendix.endswith('/')):
             appendix = appendix + '/'
-
+        print(self.operation(), appendix)
         return self.url() + self.operation() + appendix
 

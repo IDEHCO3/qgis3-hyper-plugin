@@ -32,7 +32,7 @@ def hyper_requests_document_loader(**kwargs):
 
             request = HyperResource.request_get(url)
             response = request.response()
-            print('url', response.data('url'))
+            
             doc = {
                 'contextUrl': None,
                 'documentUrl': str(response.data('url')),

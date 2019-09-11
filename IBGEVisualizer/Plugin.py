@@ -214,6 +214,9 @@ def create_layer(resource):
     collection = _parse_to_layer(resource)
 
     geom_type = collection.geom_type if hasattr(collection, 'geom_type') else None
+    
+    if geom_type in ['point', 'linestring', 'polygon']:
+        geom_type = 'multi' + geom_type
 
     with VectorLayer(resource.name, geom_type) as layer:
         # Setting layer fields
@@ -222,7 +225,7 @@ def create_layer(resource):
 
         # Put features into layer
         qgis_features = collection.as_qgs_features()
-        layer.addFeatures(qgis_features, False)
+        layer.addFeatures(qgis_features)
 
     return layer
 

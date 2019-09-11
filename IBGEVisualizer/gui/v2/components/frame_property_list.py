@@ -20,7 +20,7 @@ class FramePropertyList(QFrame, FORM_CLASS):
         self.resource = resource
         self._property = property_
 
-        self.bt_reload.clicked.connect(lambda: self._request_list())
+        self.bt_reload.clicked.connect(self._request_list)
 
         self._request_list()
 
@@ -31,10 +31,11 @@ class FramePropertyList(QFrame, FORM_CLASS):
         at_type = self.resource.property(self._property).at_type
 
         switch = {
-            unicode: u'Text',
-            int: u'Número Inteiro',
-            float: u'Número Real',
-            'geometria': u'Geometria'
+            'QString': 'Text',
+            str: 'Text',
+            int: 'Número Inteiro',
+            float: 'Número Real',
+            'geometria': 'Geometria'
         }
 
         self.lb_property.setText(
@@ -43,7 +44,7 @@ class FramePropertyList(QFrame, FORM_CLASS):
             u'Tipo: {type}')
         .format(
             prop=self._property,
-            type=switch.get(at_type) or unicode(at_type),
+            type=switch.get(at_type) or at_type,
             id=at_id
         ))
 
@@ -61,13 +62,14 @@ class FramePropertyList(QFrame, FORM_CLASS):
 
         if isinstance(dic, list):
             # filtro para elementos vazios
-            filtered_dict = [elem for elem in dic if elem.values()[0] not in [None, 'None']]
+            filtered_dict = [elem for elem in dic if list(elem.values())[0] not in [None, 'None']]
         elif isinstance(dic, dict):
             filtered_dict = [dic]
         else:
             filtered_dict = []
 
-        self.load_sample(filtered_dict)
+        sorted_list = sorted(filtered_dict, key=lambda elem: list(elem.values())[0] )
+        self.load_sample(sorted_list)
 
     def request_sample(self, lower, upper):
         url = self.resource.iri
@@ -89,9 +91,9 @@ class FramePropertyList(QFrame, FORM_CLASS):
         self.list_attribute.clear()
 
         for element in sample:
-            k, v = element.items()[0]
+            _, v = list(element.items())[0]
 
             item = QListWidgetItem()
-            item.setText(unicode(v))
+            item.setText(str(v))
 
             self.list_attribute.addItem(item)

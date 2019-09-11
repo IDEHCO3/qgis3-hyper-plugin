@@ -103,10 +103,10 @@ class FrameFilterExpression(QFrame, FORM_CLASS):
         property_list = self._get_property(self.resource, prop)
 
         for elem in property_list:
-            k, v = elem.items()[0]
+            k, v = list(elem.items())[0]
 
             item = QListWidgetItem()
-            item.setText(unicode(v))
+            item.setText(str(v))
 
             self.tabValue_list_values.addItem(item)
 
@@ -122,10 +122,10 @@ class FrameFilterExpression(QFrame, FORM_CLASS):
         property_list = self._get_property(self.resource, prop)
 
         for elem in property_list:
-            k, v = elem.items()[0]
+            k, v = list(elem.items())[0]
 
             item = QListWidgetItem()
-            item.setText(unicode(v))
+            item.setText(str(v))
 
             self.tabListValue_list_values.addItem(item)
 
@@ -153,8 +153,7 @@ class FrameFilterExpression(QFrame, FORM_CLASS):
         projection_url = u'{url}projection/{prop}/offset-limit/1&200'.format(url=url, prop=prop)
 
         resource = ResourceManager.load(projection_url)
-
-        return sorted(resource.as_json())
+        return resource.as_json()
 
     def _current_tab_property_changed(self, index):
         prop = self.property_selected
@@ -172,10 +171,10 @@ class FrameFilterExpression(QFrame, FORM_CLASS):
                 return
 
             for elem in property_list:
-                k, v = elem.items()[0]
+                k, v = list(elem.items())[0]
 
                 item = QListWidgetItem()
-                item.setText(unicode(v))
+                item.setText(str(v))
 
                 self.tabValue_list_values.addItem(item)
 
@@ -188,10 +187,10 @@ class FrameFilterExpression(QFrame, FORM_CLASS):
                 return
 
             for elem in property_list:
-                k, v = elem.items()[0]
+                k, v = list(elem.items())[0]
 
                 item = QListWidgetItem()
-                item.setText(unicode(v))
+                item.setText(str(v))
 
                 self.tabListValue_list_values.addItem(item)
 
@@ -297,11 +296,11 @@ class FilterPreviewBuilder(QObject):
 
     def set_property(self, prop):
         self._reset()
-        self._property = unicode(prop)
+        self._property = prop
         self.preview_changed.emit(self.preview())
 
     def property(self):
-        return unicode(self._property)
+        return self._property
 
     def set_operator(self, oper):
         switch = {
@@ -313,18 +312,18 @@ class FilterPreviewBuilder(QObject):
             '>=': 'gte'
         }
 
-        self._operator = switch.get(oper) or unicode(oper)
+        self._operator = switch.get(oper) or oper
         self.preview_changed.emit(self.preview())
 
     def operator(self):
-        return unicode(self._operator)
+        return self._operator
 
     def set_value(self, value):
-        self._value = unicode(value)
+        self._value = value
         self.preview_changed.emit(self.preview())
 
     def value(self):
-        return unicode(self._value)
+        return self._value
 
     def append_value(self, value):
         if self.value() in ['', '<value>']:

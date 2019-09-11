@@ -12,7 +12,7 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'frame_item_list_expression.ui'))
 
 class FrameItemListExpression(QFrame, FORM_CLASS):
-    criteria_inserted = pyqtSignal(unicode)
+    criteria_inserted = pyqtSignal('QString')
 
     def __init__(self, resource):
         super(FrameItemListExpression, self).__init__()

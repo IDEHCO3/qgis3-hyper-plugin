@@ -12,7 +12,7 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'dialog_edit_resource.ui'))
 
 class DialogEditResource(QDialog, FORM_CLASS):
-    accepted = pyqtSignal(object, unicode, unicode)
+    accepted = pyqtSignal(object, 'QString', 'QString')
 
     def __init__(self, tree_item):
         super(DialogEditResource, self).__init__()

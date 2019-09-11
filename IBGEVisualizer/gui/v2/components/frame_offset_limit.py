@@ -12,7 +12,7 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'frame_offset_limit.ui'))
 
 class FrameOffsetLimit(QFrame, FORM_CLASS):
-    criteria_inserted = pyqtSignal(unicode)
+    criteria_inserted = pyqtSignal('QString')
 
     def __init__(self):
         super(FrameOffsetLimit, self).__init__()

@@ -12,7 +12,7 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'dialog_add_resource.ui'))
 
 class DialogAddResource(QDialog, FORM_CLASS):
-    accepted = pyqtSignal(unicode, unicode)
+    accepted = pyqtSignal('QString', 'QString')
 
     def __init__(self):
         super(DialogAddResource, self).__init__()

@@ -79,7 +79,7 @@ class IBGEVisualizer(object):
 
         self.dock_controller = None
 
-        self._saver = MemoryLayerSaver(iface)
+        #self._saver = MemoryLayerSaver(iface)
 
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
@@ -180,7 +180,7 @@ class IBGEVisualizer(object):
             callback=self.run,
             parent=self.iface.mainWindow())
 
-        self._saver.attach_to_project()
+        #self._saver.attach_to_project()
 
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
@@ -193,7 +193,7 @@ class IBGEVisualizer(object):
         # remove the toolbar
         del self.toolbar
 
-        self._saver.detach_from_project()
+        #self._saver.detach_from_project()
 
     def run(self):
         """Run method that loads and starts the plugin"""

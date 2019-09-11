@@ -9,10 +9,14 @@ from qgis.core import *
 from qgis.utils import iface
 from qgis.gui import QgsMessageBar
 
-from qgis.PyQt import QtGui
+from qgis.PyQt import QtGui, QtWidgets
 
 
-class Utils(object):
+class Utils:
+    @staticmethod
+    def addJSONToLayer(resource):
+        return iface.addVectorLayer(resource.iri, resource.name, 'ogr')
+
     @staticmethod
     # Add a layer
     # @param layer: object type qgis.core.QgsMapLayer
@@ -22,7 +26,7 @@ class Utils(object):
             Utils.infoMessage("Layer is null.")
             return None
 
-        l = QgsProject.addMapLayer(layer)
+        l = QgsProject.instance().addMapLayer(layer)
 
         if l is None:
             Utils.infoMessage("Impossible to add layer.", 5)
@@ -35,7 +39,7 @@ class Utils(object):
     # @return: List of layers with that name
     @staticmethod
     def getLayersByName(name):
-        return QgsProject.mapLayersByName(name)
+        return QgsProject.instance().mapLayersByName(name)
 
     @staticmethod
     def registerLayerType(layer_type):
@@ -48,7 +52,7 @@ class Utils(object):
 
     @staticmethod
     def infoMessage(message, duration=3):
-        iface.messageBar().pushMessage('Info: ', message, QgsMessageBar.INFO, duration)
+        iface.messageBar().pushMessage('Info: ', message, Qgis.Info, duration)
 
     @staticmethod
     def log(msg, tab=None, level=None):

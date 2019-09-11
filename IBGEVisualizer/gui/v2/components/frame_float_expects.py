@@ -12,7 +12,7 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'frame_float_expects.ui'))
 
 class FrameFloatExpects(QFrame, FORM_CLASS):
-    criteria_inserted = pyqtSignal(unicode)
+    criteria_inserted = pyqtSignal('QString')
 
     def __init__(self):
         super(FrameFloatExpects, self).__init__()
