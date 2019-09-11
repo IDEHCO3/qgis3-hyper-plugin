@@ -226,6 +226,6 @@ class UrlBuilder(QObject):
 
         if (not appendix == '') and (not appendix.endswith('/*')) and (not appendix.endswith('/')):
             appendix = appendix + '/'
-        print(self.operation(), appendix)
+						
         return self.url() + self.operation() + appendix
 
