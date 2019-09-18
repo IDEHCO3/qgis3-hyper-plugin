@@ -171,9 +171,9 @@ class PropertySupportedOperationReader(object):
     def as_text(self):
         if not self._data:
             self._data = self.response()
-
-            if 200 > self._data.get('status_code') >= 300:
-                raise Exception(
+            if self._data.get('status_code'):
+                if 200 > self._data.get('status_code') >= 300:
+                    raise Exception(
                     u'Acesso à {url} retornou {code} {phrase}'.format(
                         url=self.url,
                         code=self._data['status_code'],
